@@ -6,6 +6,13 @@
     <title>TRON | Разработка Цифровых Решений</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
         :root {
             --bg-primary: #f5f5f7;
             --bg-secondary: #ffffff;
@@ -46,11 +53,10 @@
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            min-height: 100vh;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            padding: 0;
             line-height: 1.6;
             position: relative;
             overflow-x: hidden;
@@ -77,6 +83,9 @@
             position: relative;
             margin: 40px 0;
             border: 1px solid rgba(0, 113, 227, 0.1);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         /* Упрощенная шапка с эффектом свечения */
@@ -157,6 +166,10 @@
         .content {
             padding: 50px 40px;
             position: relative;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
         }
 
         /* Увеличенные заголовки */
@@ -369,13 +382,17 @@
 
         /* Адаптация для мобильных (iPhone 11) */
         @media (max-width: 414px) {
+            body {
+                padding: 0;
+            }
             .container {
-                margin: 20px 0;
-                border-radius: 18px;
+                margin: 0;
+                border-radius: 0;
+                height: 100vh;
             }
             
             .header {
-                padding: 90px 20px 30px; /* Больше верхний отступ */
+                padding: 140px 20px 70px;
             }
             
             .logo-icon {
@@ -389,7 +406,7 @@
             
             .main-headline {
                 font-size: 2.6rem;
-                margin-bottom: 20px;
+                margin-bottom: 90px;
                 padding-bottom: 15px;
             }
             
@@ -400,16 +417,17 @@
             
             .sub-headline {
                 font-size: 1.7rem;
-                margin-bottom: 35px;
+                margin-bottom: 120px;
             }
             
             .tagline {
                 font-size: 2.2rem;
                 padding-bottom: 20px;
+                margin-bottom: 110px;
             }
             
             .content {
-                padding: 35px 20px;
+                padding: 110px 20px;
             }
             
             .developer-title {
@@ -419,18 +437,19 @@
             .developer-highlight {
                 font-size: 1.5rem;
                 padding: 14px 25px;
+                margin: 90px auto;
             }
             
             .cta-button {
-                padding: 20px;
+                padding: 55px;
                 font-size: 1.6rem;
                 max-width: 340px;
+                margin: 150px auto;
             }
             
-            /* Адаптация переключателя для мобильных */
             .theme-switcher {
-                top: 20px;
-                right: 20px;
+                top: 25px;
+                right: 25px;
                 width: 100px;
                 height: 50px;
             }
@@ -448,43 +467,8 @@
                 font-size: 22px;
             }
 
-            /* Further adaptation for very tall mobile screens (e.g., iPhone Pro Max, Plus models) */
-            @media (min-height: 850px) {
-                .container {
-                    margin: 40px 0;
-                }
-                
-                .header {
-                    padding: 100px 20px 50px;
-                }
-                
-                .main-headline {
-                    margin-bottom: 40px;
-                }
-                
-                .sub-headline {
-                    margin-bottom: 55px;
-                }
-                
-                .tagline {
-                    margin-bottom: 50px;
-                }
-                
-                .content {
-                    padding: 55px 20px;
-                }
-                
-                .developer-info {
-                    margin: 45px auto;
-                }
-                
-                .cta-button {
-                    margin: 60px auto;
-                }
-
-                footer {
-                    padding: 45px 20px;
-                }
+            footer {
+                padding: 90px 20px;
             }
         }
 

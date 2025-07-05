@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRON | Разработка Цифровых Решений</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-accent: #0071e3;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --text-accent: #0066cc;
+            --border-color: #d2d2d7;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            --header-gradient: linear-gradient(to bottom, #f5f5f7 0%, #ffffff 100%);
+            --logo-icon-color: #0071e3;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #1d1d1f;
+            --bg-accent: #2997ff;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a0a0a0;
+            --text-accent: #2997ff;
+            --border-color: #424245;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            --header-gradient: linear-gradient(to bottom, #000000 0%, #1d1d1f 100%);
+            --logo-icon-color: #2997ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            transition: var(--transition);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(0, 113, 227, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            position: relative;
+            margin: 40px 0;
+            border: 1px solid rgba(0, 113, 227, 0.1);
+        }
+
+        /* Упрощенная шапка с эффектом свечения */
+        .header {
+            background: var(--header-gradient);
+            padding: 70px 40px 40px;
+            text-align: center;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 113, 227, 0.1) 0%, transparent 70%);
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* Анимированный логотип */
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--text-accent) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(0, 113, 227, 0.3);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .logo-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        .logo-text {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--bg-accent);
+            border-radius: 2px;
+        }
+
+        /* Основной контент */
+        .content {
+            padding: 50px 40px;
+            position: relative;
+        }
+
+        /* Увеличенные заголовки */
+        .main-headline {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-align: center;
+            color: var(--text-primary);
+            max-width: 900px;
+            margin: 0 auto 30px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .main-headline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bg-accent), #a2c8ff);
+            border-radius: 2px;
+        }
+
+        .sub-headline {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .tagline {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 35px;
+            line-height: 1.3;
+            text-align: center;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Информация разработчика */
+        .developer-info {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: 35px;
+            margin: 35px 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .developer-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--bg-accent), #a2c8ff);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .developer-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .developer-highlight {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--bg-accent);
+            padding: 16px 32px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 20px 0;
+            background: rgba(0, 113, 227, 0.08);
+            border: 1px solid rgba(0, 113, 227, 0.1);
+        }
+
+        /* Продающая кнопка CTA - увеличенная */
+        .cta-button {
+            display: block;
+            width: 100%;
+            max-width: 380px;
+            margin: 40px auto;
+            padding: 22px 35px;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--bg-accent), #3a0ca3);
+            border: none;
+            border-radius: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            animation: cta-pulse 3s infinite;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 113, 227, 0.5);
+        }
+
+        .cta-button::after {
+            content: '→';
+            margin-left: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            top: 1px;
+            font-size: 1.5rem;
+        }
+
+        .cta-button:hover::after {
+            margin-left: 25px;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            width: 100%;
+        }
+
+        /* УВЕЛИЧЕННЫЙ и адаптированный переключатель темы */
+        .theme-switcher {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 120px; /* Увеличенная ширина */
+            height: 55px; /* Увеличенная высота */
+            background: var(--bg-secondary);
+            border-radius: 28px; /* Больше радиус */
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            z-index: 10;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switcher:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-switcher::before {
+            content: '';
+            position: absolute;
+            width: 40px; /* Больше размер кружка */
+            height: 40px; /* Больше размер кружка */
+            border-radius: 50%;
+            background: var(--bg-accent);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .theme-switcher.light::before {
+            transform: translateX(0);
+        }
+
+        .theme-switcher.dark::before {
+            transform: translateX(60px); /* Смещение для темной темы */
+        }
+
+        .theme-icon {
+            font-size: 24px; /* Больше размер иконок */
+            color: var(--text-secondary);
+            z-index: 2;
+            transition: color 0.3s ease;
+            position: relative;
+            flex: 1;
+            text-align: center;
+        }
+
+        .sun-icon {
+            margin-right: 0;
+        }
+
+        .moon-icon {
+            margin-left: 0;
+        }
+
+        /* Адаптация для мобильных (iPhone 11) */
+        @media (max-width: 414px) {
+            .container {
+                margin: 30px 0;
+                border-radius: 18px;
+            }
+            
+            .header {
+                padding: 90px 20px 40px;
+            }
+            
+            .logo-icon {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .logo-text {
+                font-size: 3.2rem;
+            }
+            
+            .main-headline {
+                font-size: 2.6rem;
+                margin-bottom: 30px;
+                padding-bottom: 15px;
+            }
+            
+            .main-headline::after {
+                width: 80px;
+                height: 3px;
+            }
+            
+            .sub-headline {
+                font-size: 1.7rem;
+                margin-bottom: 45px;
+            }
+            
+            .tagline {
+                font-size: 2.2rem;
+                padding-bottom: 20px;
+                margin-bottom: 40px;
+            }
+            
+            .content {
+                padding: 45px 20px;
+            }
+            
+            .developer-title {
+                font-size: 1.9rem;
+            }
+            
+            .developer-highlight {
+                font-size: 1.5rem;
+                padding: 14px 25px;
+            }
+            
+            .cta-button {
+                padding: 22px;
+                font-size: 1.6rem;
+                max-width: 340px;
+                margin: 50px auto;
+            }
+            
+            .theme-switcher {
+                top: 25px;
+                right: 25px;
+                width: 100px;
+                height: 50px;
+            }
+            
+            .theme-switcher::before {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .theme-switcher.dark::before {
+                transform: translateX(52px);
+            }
+            
+            .theme-icon {
+                font-size: 22px;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        
+        @keyframes cta-pulse {
+            0% { box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4); }
+            50% { box-shadow: 0 10px 40px rgba(0, 113, 227, 0.6); }
+            100% { box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4); }
+        }
+
+        .logo, .main-headline, .sub-headline, .tagline, .developer-info, .cta-button {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .main-headline { animation-delay: 0.1s; }
+        .sub-headline { animation-delay: 0.2s; }
+        .tagline { animation-delay: 0.3s; }
+        .developer-info { animation-delay: 0.4s; }
+        .cta-button { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Адаптированный переключатель темы -->
+        <div class="theme-switcher" id="themeSwitcher">
+            <i class="fas fa-sun theme-icon sun-icon"></i>
+            <i class="fas fa-moon theme-icon moon-icon"></i>
+        </div>
+        
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="2" ry="2" fill="none"/>
+                      <path d="M7 7h10v10H7z" fill="none"/>
+                      <line x1="12" y1="2" x2="12" y2="7"/>
+                      <line x1="12" y1="17" x2="12" y2="22"/>
+                      <line x1="2" y1="12" x2="7" y2="12"/>
+                      <line x1="17" y1="12" x2="22" y2="12"/>
+                    </svg>
+                </div>
+                <div class="logo-text">TRON</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h1 class="main-headline">Создаю цифровые продукты, которые вдохновляют</h1>
+            <p class="sub-headline">Инновационные решения для вашего бизнеса</p>
+            
+            <div class="tagline">Fullstack Разработчик</div>
+            
+            <div class="developer-info">
+                <div class="developer-title">Первый результат — уже через 1–3 дня!</div>
+                <div class="developer-highlight">Ответ на ваш запрос — в течение 24 часов</div>
+            </div>
+            
+            <a href="https://partfoliotron.netlify.app" class="cta-button">Обсудить проект</a>
+        </div>
+        
+        <footer>
+            <p>© 2025 TRON | Fullstack разработчик. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Определение системной темы
+        function detectSystemTheme() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        }
+
+        // Переключение темы
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme') || detectSystemTheme();
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeSwitcher(newTheme);
+        }
+
+        // Обновление переключателя темы
+        function updateThemeSwitcher(theme) {
+            const switcher = document.getElementById('themeSwitcher');
+            switcher.className = `theme-switcher ${theme}`;
+        }
+
+        // Инициализация темы
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = detectSystemTheme();
+            const theme = savedTheme || systemTheme;
+            
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeSwitcher(theme);
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            
+            // Назначение обработчика переключателя
+            document.getElementById('themeSwitcher').addEventListener('click', toggleTheme);
+            
+            // Анимация элементов
+            const elements = document.querySelectorAll('.logo, .main-headline, .sub-headline, .tagline, .developer-info, .cta-button');
+            elements.forEach((el, index) => {
+                el.style.animation = `fadeIn 0.6s ${index * 0.1}s ease-out forwards`;
+            });
+        });
+    </script>
+</body>
+</html>

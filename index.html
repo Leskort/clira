@@ -3,596 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRON | Разработка Цифровых Решений</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Звезда для Саши</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-        }
-
-        :root {
-            --bg-primary: #f5f5f7;
-            --bg-secondary: #ffffff;
-            --bg-accent: #0071e3;
-            --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
-            --text-accent: #0066cc;
-            --border-color: #d2d2d7;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            --header-gradient: linear-gradient(to bottom, #f5f5f7 0%, #ffffff 100%);
-            --logo-icon-color: #0071e3;
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #000000;
-            --bg-secondary: #1d1d1f;
-            --bg-accent: #2997ff;
-            --text-primary: #f5f5f7;
-            --text-secondary: #a0a0a0;
-            --text-accent: #2997ff;
-            --border-color: #424245;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            --header-gradient: linear-gradient(to bottom, #000000 0%, #1d1d1f 100%);
-            --logo-icon-color: #2997ff;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-            transition: var(--transition);
         }
-
+        
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(0, 113, 227, 0.03) 0%, transparent 50%);
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            box-shadow: var(--card-shadow);
+            font-family: 'Arial', sans-serif;
             overflow: hidden;
-            position: relative;
-            margin: 40px 0;
-            border: 1px solid rgba(0, 113, 227, 0.1);
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        /* Упрощенная шапка с эффектом свечения */
-        .header {
-            background: var(--header-gradient);
-            padding: 70px 40px 40px;
-            text-align: center;
-            color: var(--text-primary);
-            position: relative;
-            overflow: hidden;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0, 113, 227, 0.1) 0%, transparent 70%);
-            z-index: 0;
-            opacity: 0.6;
-        }
-
-        /* Анимированный логотип */
-        .logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--text-accent) 100%);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 30px rgba(0, 113, 227, 0.3);
-            animation: float 6s infinite ease-in-out;
-        }
-
-        .logo-icon svg {
-            width: 50px;
-            height: 50px;
-            fill: white;
-        }
-
-        .logo-text {
-            font-size: 3.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: relative;
-        }
-
-        .logo-text::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--bg-accent);
-            border-radius: 2px;
-        }
-
-        /* Основной контент */
-        .content {
-            padding: 50px 40px;
-            position: relative;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-
-        /* Увеличенные заголовки */
-        .main-headline {
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            line-height: 1.2;
-            text-align: center;
-            color: var(--text-primary);
-            max-width: 900px;
-            margin: 0 auto 30px;
-            position: relative;
-            padding-bottom: 20px;
-        }
-
-        .main-headline::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--bg-accent), #a2c8ff);
-            border-radius: 2px;
-        }
-
-        .sub-headline {
-            font-size: 2rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-
-        .tagline {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 35px;
-            line-height: 1.3;
-            text-align: center;
-            color: var(--text-primary);
-            position: relative;
-            padding-bottom: 25px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Информация разработчика */
-        .developer-info {
-            background: var(--bg-primary);
-            border-radius: 20px;
-            padding: 35px;
-            margin: 35px 0;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-        }
-
-        .developer-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--bg-accent), #a2c8ff);
-            border-radius: 5px 5px 0 0;
-        }
-
-        .developer-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .developer-highlight {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--bg-accent);
-            padding: 16px 32px;
-            border-radius: 50px;
-            display: inline-block;
-            margin: 20px 0;
-            background: rgba(0, 113, 227, 0.08);
-            border: 1px solid rgba(0, 113, 227, 0.1);
-        }
-
-        /* Продающая кнопка CTA - увеличенная */
-        .cta-button {
-            display: block;
-            width: 100%;
-            max-width: 380px;
-            margin: 40px auto;
-            padding: 22px 35px;
-            font-size: 1.7rem;
-            font-weight: 600;
+            background: #000;
             color: white;
-            background: linear-gradient(135deg, var(--bg-accent), #3a0ca3);
-            border: none;
-            border-radius: 16px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            animation: cta-pulse 3s infinite;
-            z-index: 2;
+            height: 100vh;
+            touch-action: none;
         }
-
-        .cta-button:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(0, 113, 227, 0.5);
-        }
-
-        .cta-button::after {
-            content: '→';
-            margin-left: 15px;
-            transition: all 0.3s ease;
-            position: relative;
-            top: 1px;
-            font-size: 1.5rem;
-        }
-
-        .cta-button:hover::after {
-            margin-left: 25px;
-        }
-
-        /* Футер */
-        footer {
-            text-align: center;
-            padding: 35px 20px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-primary);
+        
+        #container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
         }
-
-        /* УВЕЛИЧЕННЫЙ и адаптированный переключатель темы */
-        .theme-switcher {
+        
+        #ui {
             position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 120px; /* Увеличенная ширина */
-            height: 55px; /* Увеличенная высота */
-            background: var(--bg-secondary);
-            border-radius: 28px; /* Больше радиус */
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: 10;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
         }
-
-        .theme-switcher:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-switcher::before {
-            content: '';
+        
+        .instructions {
             position: absolute;
-            width: 40px; /* Больше размер кружка */
-            height: 40px; /* Больше размер кружка */
-            border-radius: 50%;
-            background: var(--bg-accent);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .theme-switcher.light::before {
-            transform: translateX(0);
-        }
-
-        .theme-switcher.dark::before {
-            transform: translateX(60px); /* Смещение для темной темы */
-        }
-
-        .theme-icon {
-            font-size: 24px; /* Больше размер иконок */
-            color: var(--text-secondary);
-            z-index: 2;
-            transition: color 0.3s ease;
-            position: relative;
-            flex: 1;
+            bottom: 30px;
+            left: 0;
+            right: 0;
             text-align: center;
-        }
-
-        .sun-icon {
-            margin-right: 0;
-        }
-
-        .moon-icon {
-            margin-left: 0;
-        }
-
-        /* Адаптация для мобильных (iPhone 11) */
-        @media (max-width: 414px) {
-            body {
-                padding: 0;
-            }
-            .container {
-                margin: 0;
-                border-radius: 0;
-                height: 100vh;
-            }
-            
-            .header {
-                padding: 140px 20px 70px;
-            }
-            
-            .logo-icon {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .logo-text {
-                font-size: 3.2rem;
-            }
-            
-            .main-headline {
-                font-size: 2.6rem;
-                margin-bottom: 90px;
-                padding-bottom: 15px;
-            }
-            
-            .main-headline::after {
-                width: 80px;
-                height: 3px;
-            }
-            
-            .sub-headline {
-                font-size: 1.7rem;
-                margin-bottom: 120px;
-            }
-            
-            .tagline {
-                font-size: 2.2rem;
-                padding-bottom: 20px;
-                margin-bottom: 110px;
-            }
-            
-            .content {
-                padding: 110px 20px;
-            }
-            
-            .developer-title {
-                font-size: 1.9rem;
-            }
-            
-            .developer-highlight {
-                font-size: 1.5rem;
-                padding: 14px 25px;
-                margin: 90px auto;
-            }
-            
-            .cta-button {
-                padding: 55px;
-                font-size: 1.6rem;
-                max-width: 340px;
-                margin: 150px auto;
-            }
-            
-            .theme-switcher {
-                top: 25px;
-                right: 25px;
-                width: 100px;
-                height: 50px;
-            }
-            
-            .theme-switcher::before {
-                width: 38px;
-                height: 38px;
-            }
-            
-            .theme-switcher.dark::before {
-                transform: translateX(52px);
-            }
-            
-            .theme-icon {
-                font-size: 22px;
-            }
-
-            footer {
-                padding: 90px 20px;
-            }
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            pointer-events: none;
         }
         
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
+        /* Сертификат */
+        .certificate-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            pointer-events: none;
         }
         
-        @keyframes cta-pulse {
-            0% { box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4); }
-            50% { box-shadow: 0 10px 40px rgba(0, 113, 227, 0.6); }
-            100% { box-shadow: 0 10px 30px rgba(0, 113, 227, 0.4); }
+        .certificate-container.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
         }
-
-        .logo, .main-headline, .sub-headline, .tagline, .developer-info, .cta-button {
-            animation: fadeIn 0.6s ease-out forwards;
+        
+        .certificate-backdrop {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
         }
-
-        .main-headline { animation-delay: 0.1s; }
-        .sub-headline { animation-delay: 0.2s; }
-        .tagline { animation-delay: 0.3s; }
-        .developer-info { animation-delay: 0.4s; }
-        .cta-button { animation-delay: 0.5s; }
+        
+        .certificate {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            background: #f5e9c9;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            border: 15px solid transparent;
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><rect x="0" y="0" width="40" height="40" fill="none" stroke="%23d4af37" stroke-width="2" stroke-dasharray="5,5"/></svg>') 30 stretch;
+            padding: 40px;
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.3),
+                0 0 100px rgba(255, 215, 0, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #3a3a3a;
+            font-family: 'Georgia', serif;
+            transform: scale(0.9);
+            transition: transform 0.5s;
+        }
+        
+        .certificate-container.visible .certificate {
+            transform: scale(1);
+        }
+        
+        .certificate h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #8b4513;
+        }
+        
+        .certificate p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            font-size: 28px;
+            color: #8b4513;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            color: #8b4513;
+            border-top: 2px solid #d4af37;
+            display: inline-block;
+            padding-top: 10px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #8b4513;
+            background: none;
+            border: none;
+            cursor: pointer;
+            pointer-events: all;
+        }
+        
+        @media (max-width: 768px) {
+            .certificate {
+                padding: 25px 15px;
+                width: 95%;
+            }
+            
+            .certificate h1 {
+                font-size: 28px;
+            }
+            
+            .highlight {
+                font-size: 24px;
+            }
+            
+            .certificate p {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Адаптированный переключатель темы -->
-        <div class="theme-switcher" id="themeSwitcher">
-            <i class="fas fa-sun theme-icon sun-icon"></i>
-            <i class="fas fa-moon theme-icon moon-icon"></i>
-        </div>
+    <div id="container"></div>
+    <div id="ui">
+        <div class="instructions">Двигайте пальцем для навигации. Нажмите на центральную звезду для сертификата</div>
         
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="2" y="2" width="20" height="20" rx="2" ry="2" fill="none"/>
-                      <path d="M7 7h10v10H7z" fill="none"/>
-                      <line x1="12" y1="2" x2="12" y2="7"/>
-                      <line x1="12" y1="17" x2="12" y2="22"/>
-                      <line x1="2" y1="12" x2="7" y2="12"/>
-                      <line x1="17" y1="12" x2="22" y2="12"/>
-                    </svg>
-                </div>
-                <div class="logo-text">TRON</div>
+        <div class="certificate-container" id="certificate-container">
+            <div class="certificate-backdrop" id="certificate-backdrop"></div>
+            <div class="certificate">
+                <button class="close-btn" id="close-btn">&times;</button>
+                <h1>СЕРТИФИКАТ</h1>
+                <p>Настоящим удостоверяется, что</p>
+                <div class="highlight">Саша</div>
+                <p>является официальным владельцем звезды</p>
+                <p>в созвездии Скорпиона, которая будет</p>
+                <p>вечно сиять в ночном небе в твою честь.</p>
+                <div class="signature">С любовью, Tron</div>
+                <div class="date" id="current-date"></div>
             </div>
         </div>
-        
-        <div class="content">
-            <h1 class="main-headline">Создаю цифровые продукты, которые вдохновляют</h1>
-            <p class="sub-headline">Инновационные решения для вашего бизнеса</p>
-            
-            <div class="tagline">Fullstack Разработчик</div>
-            
-            <div class="developer-info">
-                <div class="developer-title">Первый результат — уже через 1–3 дня!</div>
-                <div class="developer-highlight">Ответ на ваш запрос — в течение 24 часов</div>
-            </div>
-            
-            <a href="https://partfoliotron.netlify.app" class="cta-button">Обсудить проект</a>
-        </div>
-        
-        <footer>
-            <p>© 2025 TRON | Fullstack разработчик. Все права защищены.</p>
-        </footer>
     </div>
 
     <script>
-        // Определение системной темы
-        function detectSystemTheme() {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
-            }
-            return 'light';
-        }
-
-        // Переключение темы
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme') || detectSystemTheme();
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeSwitcher(newTheme);
-        }
-
-        // Обновление переключателя темы
-        function updateThemeSwitcher(theme) {
-            const switcher = document.getElementById('themeSwitcher');
-            switcher.className = `theme-switcher ${theme}`;
-        }
-
-        // Инициализация темы
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemTheme = detectSystemTheme();
-            const theme = savedTheme || systemTheme;
-            
-            document.documentElement.setAttribute('data-theme', theme);
-            updateThemeSwitcher(theme);
-        }
-
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            
-            // Назначение обработчика переключателя
-            document.getElementById('themeSwitcher').addEventListener('click', toggleTheme);
-            
-            // Анимация элементов
-            const elements = document.querySelectorAll('.logo, .main-headline, .sub-headline, .tagline, .developer-info, .cta-button');
-            elements.forEach((el, index) => {
-                el.style.animation = `fadeIn 0.6s ${index * 0.1}s ease-out forwards`;
-            });
+        // Инициализация сцены Three.js
+        let scene, camera, renderer;
+        let starField = [];
+        let mainStar;
+        let raycaster, mouse;
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        
+        // Элементы интерфейса
+        const certificateContainer = document.getElementById('certificate-container');
+        const closeBtn = document.getElementById('close-btn');
+        const backdrop = document.getElementById('certificate-backdrop');
+        const currentDateElement = document.getElementById('current-date');
+        
+        // Установка текущей даты
+        const now = new Date();
+        currentDateElement.textContent = now.toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
         });
+        
+        function init() {
+            // Создание сцены
+            scene = new THREE.Scene();
+            
+            // Создание камеры
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+            camera.position.z = 500;
+            
+            // Создание рендерера
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('container').appendChild(renderer.domElement);
+            
+            // Создание звездного поля
+            createStarField();
+            
+            // Создание центральной звезды
+            createRealisticWhiteStar();
+            
+            // Инициализация Raycaster для обнаружения кликов
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            
+            // Добавление обработчиков событий
+            setupEventListeners();
+            
+            // Запуск анимации
+            animate();
+        }
+        
+        function createStarField() {
+            const starGeometry = new THREE.BufferGeometry();
+            const starCount = 5000;
+            
+            const positions = new Float32Array(starCount * 3);
+            const colors = new Float32Array(starCount * 3);
+            const sizes = new Float32Array(starCount);
+            
+            for (let i = 0; i < starCount; i++) {
+                // Позиция
+                const i3 = i * 3;
+                positions[i3] = (Math.random() - 0.5) * 2000;
+                positions[i3 + 1] = (Math.random() - 0.5) * 2000;
+                positions[i3 + 2] = (Math.random() - 0.5) * 2000;
+                
+                // Цвет
+                const color = new THREE.Color();
+                color.setHSL(Math.random() * 0.2 + 0.5, 0.5, Math.random() * 0.5 + 0.5);
+                colors[i3] = color.r;
+                colors[i3 + 1] = color.g;
+                colors[i3 + 2] = color.b;
+                
+                // Размер
+                sizes[i] = Math.random() * 2;
+            }
+            
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            starGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            starGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            
+            const starMaterial = new THREE.PointsMaterial({
+                size: 1,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+            starField.push(stars);
+        }
+        
+        function createRealisticWhiteStar() {
+            // Создаем группу для звезды
+            const starGroup = new THREE.Group();
+            scene.add(starGroup);
+            
+            // Создаем текстуру для звезды с помощью Canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const context = canvas.getContext('2d');
+            
+            // Рисуем текстуру белой звезды с мерцанием
+            const gradient = context.createRadialGradient(256, 256, 0, 256, 256, 256);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.9)');
+            gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.7)');
+            gradient.addColorStop(0.6, 'rgba(255, 255, 255, 0.5)');
+            gradient.addColorStop(0.8, 'rgba(255, 255, 255, 0.3)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, 512, 512);
+            
+            // Добавляем детали текстуры для эффекта мерцания
+            context.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            for (let i = 0; i < 100; i++) {
+                const x = Math.random() * 512;
+                const y = Math.random() * 512;
+                const radius = Math.random() * 5 + 1;
+                context.beginPath();
+                context.arc(x, y, radius, 0, Math.PI * 2);
+                context.fill();
+            }
+            
+            // Добавляем яркое ядро
+            const coreGradient = context.createRadialGradient(256, 256, 0, 256, 256, 50);
+            coreGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            coreGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            context.fillStyle = coreGradient;
+            context.beginPath();
+            context.arc(256, 256, 50, 0, Math.PI * 2);
+            context.fill();
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            
+            // Создаем материал с текстурой
+            const starMaterial = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                blending: THREE.AdditiveBlending
+            });
+            
+            // Создаем геометрию звезды
+            const starGeometry = new THREE.SphereGeometry(25, 64, 64);
+            
+            // Создаем меш звезды
+            const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+            starGroup.add(starMesh);
+            
+            // Создаем свечение вокруг звезды - белое
+            const glowGeometry = new THREE.SphereGeometry(40, 32, 32);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.4,
+                side: THREE.BackSide,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+            starGroup.add(glowMesh);
+            
+            // Создаем лучи света - тоже белые
+            const raysGeometry = new THREE.SphereGeometry(60, 32, 32);
+            const raysMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.BackSide,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const raysMesh = new THREE.Mesh(raysGeometry, raysMaterial);
+            starGroup.add(raysMesh);
+            
+            // Создаем внешнее свечение
+            const outerGlowGeometry = new THREE.SphereGeometry(90, 32, 32);
+            const outerGlowMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.15,
+                side: THREE.BackSide,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const outerGlowMesh = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
+            starGroup.add(outerGlowMesh);
+            
+            // Создаем невидимую сферу для коллизии (чтобы было проще кликать)
+            const collisionGeometry = new THREE.SphereGeometry(40, 16, 16);
+            const collisionMaterial = new THREE.MeshBasicMaterial({
+                visible: false
+            });
+            
+            const collisionMesh = new THREE.Mesh(collisionGeometry, collisionMaterial);
+            starGroup.add(collisionMesh);
+            
+            mainStar = starGroup;
+            mainStar.collisionMesh = collisionMesh;
+            
+            // Анимация пульсации звезды с мерцанием
+            function animateStar() {
+                const time = Date.now() * 0.002;
+                
+                // Случайное мерцание - более естественное для звезды
+                const flicker = Math.sin(time * 10) * 0.1 + 
+                               Math.sin(time * 7) * 0.05 + 
+                               Math.sin(time * 13) * 0.03;
+                
+                const basePulse = Math.sin(time) * 0.1 + 1;
+                const pulse = basePulse + flicker * 0.3;
+                
+                // Пульсация размеров
+                starMesh.scale.set(pulse, pulse, pulse);
+                glowMesh.scale.set(pulse * 1.2, pulse * 1.2, pulse * 1.2);
+                raysMesh.scale.set(pulse * 1.5, pulse * 1.5, pulse * 1.5);
+                outerGlowMesh.scale.set(pulse * 2, pulse * 2, pulse * 2);
+                
+                // Изменение прозрачности для эффекта мерцания
+                const opacityFlicker = 0.5 + Math.sin(time * 8) * 0.2 + 
+                                      Math.sin(time * 5) * 0.1;
+                
+                starMaterial.opacity = 0.9 + flicker * 0.3;
+                glowMaterial.opacity = 0.4 + Math.sin(time * 3) * 0.1;
+                raysMaterial.opacity = 0.3 + Math.sin(time * 4) * 0.1;
+                outerGlowMaterial.opacity = 0.15 + Math.sin(time * 2) * 0.05;
+                
+                // Вращение звезды
+                starGroup.rotation.y += 0.003;
+                
+                requestAnimationFrame(animateStar);
+            }
+            animateStar();
+        }
+        
+        function setupEventListeners() {
+            // Обработчики мыши
+            renderer.domElement.addEventListener('mousedown', onMouseDown);
+            renderer.domElement.addEventListener('mousemove', onMouseMove);
+            renderer.domElement.addEventListener('mouseup', onMouseUp);
+            renderer.domElement.addEventListener('click', onMouseClick);
+            
+            // Обработчики касания
+            renderer.domElement.addEventListener('touchstart', onTouchStart);
+            renderer.domElement.addEventListener('touchmove', onTouchMove);
+            renderer.domElement.addEventListener('touchend', onTouchEnd);
+            
+            // Обработчик изменения размера окна
+            window.addEventListener('resize', onWindowResize);
+            
+            // Закрытие сертификата
+            closeBtn.addEventListener('click', hideCertificate);
+            backdrop.addEventListener('click', hideCertificate);
+        }
+        
+        function onMouseDown(event) {
+            isDragging = true;
+            previousMousePosition = { x: event.clientX, y: event.clientY };
+        }
+        
+        function onMouseMove(event) {
+            if (!isDragging) return;
+            
+            const deltaX = event.clientX - previousMousePosition.x;
+            const deltaY = event.clientY - previousMousePosition.y;
+            
+            // Вращение сцены
+            starField.forEach(stars => {
+                stars.rotation.y += deltaX * 0.01;
+                stars.rotation.x += deltaY * 0.01;
+            });
+            
+            previousMousePosition = { x: event.clientX, y: event.clientY };
+        }
+        
+        function onMouseUp() {
+            isDragging = false;
+        }
+        
+        function onMouseClick(event) {
+            // Преобразование координат мыши в нормализованные координаты устройства
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+            
+            // Проверка пересечения с центральной звездой
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(mainStar.collisionMesh);
+            
+            if (intersects.length > 0) {
+                showCertificate();
+            }
+        }
+        
+        function onTouchStart(event) {
+            if (event.touches.length === 1) {
+                isDragging = true;
+                previousMousePosition = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+            }
+            event.preventDefault();
+        }
+        
+        function onTouchMove(event) {
+            if (!isDragging || event.touches.length !== 1) return;
+            
+            const deltaX = event.touches[0].clientX - previousMousePosition.x;
+            const deltaY = event.touches[0].clientY - previousMousePosition.y;
+            
+            // Вращение сцены
+            starField.forEach(stars => {
+                stars.rotation.y += deltaX * 0.01;
+                stars.rotation.x += deltaY * 0.01;
+            });
+            
+            previousMousePosition = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+            event.preventDefault();
+        }
+        
+        function onTouchEnd(event) {
+            if (event.touches.length === 0) {
+                isDragging = false;
+                
+                // Проверка касания для открытия сертификата
+                if (event.changedTouches.length === 1) {
+                    const touch = event.changedTouches[0];
+                    mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+                    mouse.y = - (touch.clientY / window.innerHeight) * 2 + 1;
+                    
+                    raycaster.setFromCamera(mouse, camera);
+                    const intersects = raycaster.intersectObject(mainStar.collisionMesh);
+                    
+                    if (intersects.length > 0 && !isDragging) {
+                        showCertificate();
+                    }
+                }
+            }
+            event.preventDefault();
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function showCertificate() {
+            certificateContainer.classList.add('visible');
+        }
+        
+        function hideCertificate() {
+            certificateContainer.classList.remove('visible');
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Медленное автоматическое вращение
+            starField.forEach(stars => {
+                stars.rotation.y += 0.0005;
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Запуск приложения
+        init();
     </script>
 </body>
 </html>

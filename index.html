@@ -27,6 +27,8 @@
             left: 0;
             width: 100%;
             height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
         
         #ui {
@@ -48,6 +50,213 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 16px;
             pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .instructions.hidden {
+            opacity: 0;
+        }
+        
+        /* Заставка */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1.5s ease;
+        }
+        
+        #splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .splash-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .tron-text {
+            font-size: 5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 15px #fff,
+                0 0 20px #fff,
+                0 0 35px #fff,
+                0 0 40px #fff,
+                0 0 50px #fff,
+                0 0 75px #fff;
+            animation: flicker 2s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: 
+                    0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 15px #fff,
+                    0 0 20px #fff,
+                    0 0 35px #fff,
+                    0 0 40px #fff,
+                    0 0 50px #fff,
+                    0 0 75px #fff;
+            }
+            20%, 24%, 55% {
+                opacity: 0.7;
+                text-shadow: none;
+            }
+        }
+        
+        .loading-dots {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        /* Формы авторизации */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .login-container.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        
+        .login-backdrop {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+        }
+        
+        .login-form {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            background: rgba(30, 30, 50, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 100, 255, 0.5);
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.5s;
+        }
+        
+        .login-container.visible .login-form {
+            transform: scale(1);
+        }
+        
+        .login-form h2 {
+            margin-bottom: 25px;
+            color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.7);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #bbdefb;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(100, 150, 255, 0.5);
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4fc3f7;
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #2196f3, #0d47a1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(45deg, #0d47a1, #2196f3);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.7);
+        }
+        
+        .error-message {
+            color: #f44336;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .close-login-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #4fc3f7;
+            background: none;
+            border: none;
+            cursor: pointer;
+            pointer-events: all;
         }
         
         /* Сертификат */
@@ -148,7 +357,70 @@
             pointer-events: all;
         }
         
+        /* Информация о планете */
+        .planet-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid rgba(100, 150, 255, 0.5);
+            display: none;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        /* Кнопка возврата */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid rgba(100, 150, 255, 0.5);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            z-index: 20;
+            pointer-events: all;
+        }
+        
+        .back-button:hover {
+            background: rgba(30, 30, 50, 0.9);
+            border-color: #4fc3f7;
+        }
+        
+        /* Эффект выбора */
+        .selection-effect {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid rgba(100, 200, 255, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+        }
+        
+        .selection-effect.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
         @media (max-width: 768px) {
+            .tron-text {
+                font-size: 3rem;
+                letter-spacing: 5px;
+            }
+            
+            .login-form {
+                padding: 25px 15px;
+                width: 95%;
+            }
+            
             .certificate {
                 padding: 25px 15px;
                 width: 95%;
@@ -165,14 +437,70 @@
             .certificate p {
                 font-size: 16px;
             }
+            
+            .instructions {
+                font-size: 14px;
+                bottom: 20px;
+                padding: 0 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Заставка -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="tron-text">TRON</div>
+            <div class="loading-dots">Загрузка звездного неба</div>
+        </div>
+    </div>
+    
     <div id="container"></div>
     <div id="ui">
-        <div class="instructions">Двигайте пальцем для навигации. Нажмите на центральную звезду для сертификата</div>
+        <div class="instructions">Двигайте пальцем для навигации. Нажмите на центральную звезду или планету для авторизации</div>
+        <div class="planet-info" id="planet-info">Планета Саши - нажмите для выбора</div>
+        <button class="back-button" id="back-button">Вернуться к галактике</button>
+        <div class="selection-effect" id="selection-effect"></div>
         
+        <!-- Форма авторизации для звезды -->
+        <div class="login-container" id="star-login-container">
+            <div class="login-backdrop" id="star-login-backdrop"></div>
+            <div class="login-form">
+                <button class="close-login-btn" id="close-star-login-btn">&times;</button>
+                <h2>Доступ к звезде</h2>
+                <div class="form-group">
+                    <label for="star-username">Логин:</label>
+                    <input type="text" id="star-username" placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="star-password">Пароль:</label>
+                    <input type="password" id="star-password" placeholder="Введите пароль">
+                </div>
+                <button class="login-btn" id="star-login-btn">Войти</button>
+                <div class="error-message" id="star-error-message">Неверный логин или пароль</div>
+            </div>
+        </div>
+        
+        <!-- Форма авторизации для планеты -->
+        <div class="login-container" id="planet-login-container">
+            <div class="login-backdrop" id="planet-login-backdrop"></div>
+            <div class="login-form">
+                <button class="close-login-btn" id="close-planet-login-btn">&times;</button>
+                <h2>Доступ к планете</h2>
+                <div class="form-group">
+                    <label for="planet-username">Логин:</label>
+                    <input type="text" id="planet-username" placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label for="planet-password">Пароль:</label>
+                    <input type="password" id="planet-password" placeholder="Введите пароль">
+                </div>
+                <button class="login-btn" id="planet-login-btn">Войти</button>
+                <div class="error-message" id="planet-error-message">Неверный логин или пароль</div>
+            </div>
+        </div>
+        
+        <!-- Сертификат -->
         <div class="certificate-container" id="certificate-container">
             <div class="certificate-backdrop" id="certificate-backdrop"></div>
             <div class="certificate">
@@ -193,16 +521,39 @@
         // Инициализация сцены Three.js
         let scene, camera, renderer;
         let starField = [];
-        let mainStar;
+        let mainStar, planet;
         let raycaster, mouse;
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
+        let isPlanetSelected = false;
+        let originalPlanetPosition;
+        let originalPlanetScale;
         
         // Элементы интерфейса
+        const splashScreen = document.getElementById('splash-screen');
+        const container = document.getElementById('container');
+        const starLoginContainer = document.getElementById('star-login-container');
+        const planetLoginContainer = document.getElementById('planet-login-container');
+        const closeStarLoginBtn = document.getElementById('close-star-login-btn');
+        const closePlanetLoginBtn = document.getElementById('close-planet-login-btn');
+        const starLoginBackdrop = document.getElementById('star-login-backdrop');
+        const planetLoginBackdrop = document.getElementById('planet-login-backdrop');
+        const starLoginBtn = document.getElementById('star-login-btn');
+        const planetLoginBtn = document.getElementById('planet-login-btn');
+        const starUsernameInput = document.getElementById('star-username');
+        const planetUsernameInput = document.getElementById('planet-username');
+        const starPasswordInput = document.getElementById('star-password');
+        const planetPasswordInput = document.getElementById('planet-password');
+        const starErrorMessage = document.getElementById('star-error-message');
+        const planetErrorMessage = document.getElementById('planet-error-message');
         const certificateContainer = document.getElementById('certificate-container');
         const closeBtn = document.getElementById('close-btn');
         const backdrop = document.getElementById('certificate-backdrop');
         const currentDateElement = document.getElementById('current-date');
+        const planetInfo = document.getElementById('planet-info');
+        const backButton = document.getElementById('back-button');
+        const instructions = document.querySelector('.instructions');
+        const selectionEffect = document.getElementById('selection-effect');
         
         // Установка текущей даты
         const now = new Date();
@@ -211,6 +562,215 @@
             month: 'long',
             year: 'numeric'
         });
+        
+        // Правильные учетные данные
+        const correctUsername = "tron";
+        const correctPassword = "звезда";
+        
+        // Функция проверки учетных данных
+        function checkCredentials(username, password) {
+            const normalizedUsername = username.toLowerCase().trim();
+            return normalizedUsername === correctUsername && password === correctPassword;
+        }
+        
+        // Функция скрытия заставки
+        function hideSplashScreen() {
+            splashScreen.classList.add('fade-out');
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                container.style.opacity = '1';
+            }, 1500);
+        }
+        
+        // Функция показа формы авторизации для звезды
+        function showStarLoginForm() {
+            starLoginContainer.classList.add('visible');
+            starUsernameInput.focus();
+        }
+        
+        // Функция показа формы авторизации для планеты
+        function showPlanetLoginForm() {
+            planetLoginContainer.classList.add('visible');
+            planetUsernameInput.focus();
+        }
+        
+        // Функция скрытия формы авторизации для звезды
+        function hideStarLoginForm() {
+            starLoginContainer.classList.remove('visible');
+            starUsernameInput.value = '';
+            starPasswordInput.value = '';
+            starErrorMessage.style.display = 'none';
+        }
+        
+        // Функция скрытия формы авторизации для планеты
+        function hidePlanetLoginForm() {
+            planetLoginContainer.classList.remove('visible');
+            planetUsernameInput.value = '';
+            planetPasswordInput.value = '';
+            planetErrorMessage.style.display = 'none';
+        }
+        
+        // Функция показа сертификата
+        function showCertificate() {
+            certificateContainer.classList.add('visible');
+        }
+        
+        // Функция скрытия сертификата
+        function hideCertificate() {
+            certificateContainer.classList.remove('visible');
+        }
+        
+        // Обработчик попытки входа для звезды
+        function handleStarLogin() {
+            const username = starUsernameInput.value;
+            const password = starPasswordInput.value;
+            
+            if (checkCredentials(username, password)) {
+                hideStarLoginForm();
+                showCertificate();
+            } else {
+                starErrorMessage.style.display = 'block';
+                starPasswordInput.value = '';
+                starPasswordInput.focus();
+            }
+        }
+        
+        // Обработчик попытки входа для планеты
+        function handlePlanetLogin() {
+            const username = planetUsernameInput.value;
+            const password = planetPasswordInput.value;
+            
+            if (checkCredentials(username, password)) {
+                hidePlanetLoginForm();
+                selectPlanet();
+            } else {
+                planetErrorMessage.style.display = 'block';
+                planetPasswordInput.value = '';
+                planetPasswordInput.focus();
+            }
+        }
+        
+        // Функция выбора планеты
+        function selectPlanet() {
+            if (isPlanetSelected) return;
+            
+            isPlanetSelected = true;
+            originalPlanetPosition = planet.position.clone();
+            originalPlanetScale = planet.scale.clone();
+            
+            // Показываем эффект выбора
+            showSelectionEffect();
+            
+            // Скрываем инструкции и показываем кнопку возврата
+            instructions.classList.add('hidden');
+            planetInfo.style.display = 'none';
+            backButton.style.display = 'block';
+            
+            // Анимация перемещения планеты в центр
+            const targetPosition = new THREE.Vector3(0, 0, 0);
+            const targetScale = new THREE.Vector3(3, 3, 3); // Увеличиваем планету
+            const animationDuration = 1500; // 1.5 секунды
+            const startTime = Date.now();
+            
+            function animateSelection() {
+                const currentTime = Date.now();
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / animationDuration, 1);
+                
+                // Плавная интерполяция с easing
+                const easedProgress = easeOutCubic(progress);
+                
+                // Интерполируем позицию и масштаб планеты
+                planet.position.lerpVectors(originalPlanetPosition, targetPosition, easedProgress);
+                planet.scale.lerpVectors(originalPlanetScale, targetScale, easedProgress);
+                
+                // Немного поворачиваем планету для эффекта
+                planet.rotation.y += 0.02;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animateSelection);
+                } else {
+                    // После завершения анимации показываем сертификат
+                    setTimeout(showCertificate, 500);
+                }
+            }
+            
+            animateSelection();
+        }
+        
+        // Функция возврата планеты на место
+        function deselectPlanet() {
+            if (!isPlanetSelected) return;
+            
+            hideCertificate();
+            isPlanetSelected = false;
+            
+            // Скрываем кнопку возврата
+            backButton.style.display = 'none';
+            
+            // Анимация возврата планеты
+            const animationDuration = 1500; // 1.5 секунды
+            const startTime = Date.now();
+            const currentPosition = planet.position.clone();
+            const currentScale = planet.scale.clone();
+            
+            function animateDeselection() {
+                const currentTime = Date.now();
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / animationDuration, 1);
+                
+                // Плавная интерполяция с easing
+                const easedProgress = easeOutCubic(progress);
+                
+                // Интерполируем позицию и масштаб планеты обратно
+                planet.position.lerpVectors(currentPosition, originalPlanetPosition, easedProgress);
+                planet.scale.lerpVectors(currentScale, originalPlanetScale, easedProgress);
+                
+                // Продолжаем вращение
+                planet.rotation.y += 0.02;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animateDeselection);
+                } else {
+                    // Показываем инструкции после возврата
+                    instructions.classList.remove('hidden');
+                }
+            }
+            
+            animateDeselection();
+        }
+        
+        // Функция показа эффекта выбора
+        function showSelectionEffect() {
+            // Позиционируем эффект на месте планеты
+            const planetScreenPos = getScreenPosition(planet.position);
+            selectionEffect.style.left = (planetScreenPos.x - 50) + 'px';
+            selectionEffect.style.top = (planetScreenPos.y - 50) + 'px';
+            
+            // Показываем эффект
+            selectionEffect.classList.add('visible');
+            
+            // Через некоторое время скрываем эффект
+            setTimeout(() => {
+                selectionEffect.classList.remove('visible');
+            }, 1000);
+        }
+        
+        // Функция получения экранных координат 3D объекта
+        function getScreenPosition(position) {
+            const vector = position.clone();
+            vector.project(camera);
+            
+            return {
+                x: (vector.x * 0.5 + 0.5) * window.innerWidth,
+                y: (-vector.y * 0.5 + 0.5) * window.innerHeight
+            };
+        }
+        
+        // Функция плавности анимации
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
         
         function init() {
             // Создание сцены
@@ -232,6 +792,9 @@
             // Создание центральной звезды
             createRealisticWhiteStar();
             
+            // Создание планеты
+            createRealisticPlanet();
+            
             // Инициализация Raycaster для обнаружения кликов
             raycaster = new THREE.Raycaster();
             mouse = new THREE.Vector2();
@@ -241,6 +804,9 @@
             
             // Запуск анимации
             animate();
+            
+            // Скрытие заставки после загрузки
+            setTimeout(hideSplashScreen, 3000);
         }
         
         function createStarField() {
@@ -252,20 +818,17 @@
             const sizes = new Float32Array(starCount);
             
             for (let i = 0; i < starCount; i++) {
-                // Позиция
                 const i3 = i * 3;
                 positions[i3] = (Math.random() - 0.5) * 2000;
                 positions[i3 + 1] = (Math.random() - 0.5) * 2000;
                 positions[i3 + 2] = (Math.random() - 0.5) * 2000;
                 
-                // Цвет
                 const color = new THREE.Color();
                 color.setHSL(Math.random() * 0.2 + 0.5, 0.5, Math.random() * 0.5 + 0.5);
                 colors[i3] = color.r;
                 colors[i3 + 1] = color.g;
                 colors[i3 + 2] = color.b;
                 
-                // Размер
                 sizes[i] = Math.random() * 2;
             }
             
@@ -286,17 +849,14 @@
         }
         
         function createRealisticWhiteStar() {
-            // Создаем группу для звезды
             const starGroup = new THREE.Group();
             scene.add(starGroup);
             
-            // Создаем текстуру для звезды с помощью Canvas
             const canvas = document.createElement('canvas');
             canvas.width = 512;
             canvas.height = 512;
             const context = canvas.getContext('2d');
             
-            // Рисуем текстуру белой звезды с мерцанием
             const gradient = context.createRadialGradient(256, 256, 0, 256, 256, 256);
             gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
             gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.9)');
@@ -308,7 +868,6 @@
             context.fillStyle = gradient;
             context.fillRect(0, 0, 512, 512);
             
-            // Добавляем детали текстуры для эффекта мерцания
             context.fillStyle = 'rgba(255, 255, 255, 0.8)';
             for (let i = 0; i < 100; i++) {
                 const x = Math.random() * 512;
@@ -319,7 +878,6 @@
                 context.fill();
             }
             
-            // Добавляем яркое ядро
             const coreGradient = context.createRadialGradient(256, 256, 0, 256, 256, 50);
             coreGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
             coreGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
@@ -331,21 +889,16 @@
             
             const texture = new THREE.CanvasTexture(canvas);
             
-            // Создаем материал с текстурой
             const starMaterial = new THREE.MeshBasicMaterial({
                 map: texture,
                 transparent: true,
                 blending: THREE.AdditiveBlending
             });
             
-            // Создаем геометрию звезды
             const starGeometry = new THREE.SphereGeometry(25, 64, 64);
-            
-            // Создаем меш звезды
             const starMesh = new THREE.Mesh(starGeometry, starMaterial);
             starGroup.add(starMesh);
             
-            // Создаем свечение вокруг звезды - белое
             const glowGeometry = new THREE.SphereGeometry(40, 32, 32);
             const glowMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
@@ -358,7 +911,6 @@
             const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
             starGroup.add(glowMesh);
             
-            // Создаем лучи света - тоже белые
             const raysGeometry = new THREE.SphereGeometry(60, 32, 32);
             const raysMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
@@ -371,7 +923,6 @@
             const raysMesh = new THREE.Mesh(raysGeometry, raysMaterial);
             starGroup.add(raysMesh);
             
-            // Создаем внешнее свечение
             const outerGlowGeometry = new THREE.SphereGeometry(90, 32, 32);
             const outerGlowMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
@@ -384,7 +935,6 @@
             const outerGlowMesh = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
             starGroup.add(outerGlowMesh);
             
-            // Создаем невидимую сферу для коллизии (чтобы было проще кликать)
             const collisionGeometry = new THREE.SphereGeometry(40, 16, 16);
             const collisionMaterial = new THREE.MeshBasicMaterial({
                 visible: false
@@ -396,11 +946,9 @@
             mainStar = starGroup;
             mainStar.collisionMesh = collisionMesh;
             
-            // Анимация пульсации звезды с мерцанием
             function animateStar() {
                 const time = Date.now() * 0.002;
                 
-                // Случайное мерцание - более естественное для звезды
                 const flicker = Math.sin(time * 10) * 0.1 + 
                                Math.sin(time * 7) * 0.05 + 
                                Math.sin(time * 13) * 0.03;
@@ -408,22 +956,16 @@
                 const basePulse = Math.sin(time) * 0.1 + 1;
                 const pulse = basePulse + flicker * 0.3;
                 
-                // Пульсация размеров
                 starMesh.scale.set(pulse, pulse, pulse);
                 glowMesh.scale.set(pulse * 1.2, pulse * 1.2, pulse * 1.2);
                 raysMesh.scale.set(pulse * 1.5, pulse * 1.5, pulse * 1.5);
                 outerGlowMesh.scale.set(pulse * 2, pulse * 2, pulse * 2);
-                
-                // Изменение прозрачности для эффекта мерцания
-                const opacityFlicker = 0.5 + Math.sin(time * 8) * 0.2 + 
-                                      Math.sin(time * 5) * 0.1;
                 
                 starMaterial.opacity = 0.9 + flicker * 0.3;
                 glowMaterial.opacity = 0.4 + Math.sin(time * 3) * 0.1;
                 raysMaterial.opacity = 0.3 + Math.sin(time * 4) * 0.1;
                 outerGlowMaterial.opacity = 0.15 + Math.sin(time * 2) * 0.05;
                 
-                // Вращение звезды
                 starGroup.rotation.y += 0.003;
                 
                 requestAnimationFrame(animateStar);
@@ -431,38 +973,220 @@
             animateStar();
         }
         
+        function createRealisticPlanet() {
+            const planetGroup = new THREE.Group();
+            planetGroup.position.set(200, 150, -100);
+            scene.add(planetGroup);
+            
+            // Создаем текстуру для планеты с помощью Canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 512;
+            const context = canvas.getContext('2d');
+            
+            // Заполняем фон - океаны
+            const oceanGradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+            oceanGradient.addColorStop(0, '#1a5276');
+            oceanGradient.addColorStop(0.5, '#2874a6');
+            oceanGradient.addColorStop(1, '#3498db');
+            
+            context.fillStyle = oceanGradient;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Добавляем континенты
+            context.fillStyle = '#27ae60';
+            
+            // Континент 1
+            context.beginPath();
+            context.ellipse(200, 200, 80, 60, 0, 0, Math.PI * 2);
+            context.fill();
+            
+            // Континент 2
+            context.beginPath();
+            context.ellipse(500, 300, 100, 70, Math.PI/4, 0, Math.PI * 2);
+            context.fill();
+            
+            // Континент 3
+            context.beginPath();
+            context.ellipse(800, 150, 90, 50, -Math.PI/6, 0, Math.PI * 2);
+            context.fill();
+            
+            // Добавляем облака
+            context.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const radius = 10 + Math.random() * 20;
+                context.beginPath();
+                context.arc(x, y, radius, 0, Math.PI * 2);
+                context.fill();
+                
+                // Добавляем небольшие облака вокруг
+                for (let j = 0; j < 3; j++) {
+                    const offsetX = (Math.random() - 0.5) * 40;
+                    const offsetY = (Math.random() - 0.5) * 40;
+                    const smallRadius = 5 + Math.random() * 10;
+                    context.beginPath();
+                    context.arc(x + offsetX, y + offsetY, smallRadius, 0, Math.PI * 2);
+                    context.fill();
+                }
+            }
+            
+            // Добавляем полярные шапки
+            context.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            context.beginPath();
+            context.ellipse(canvas.width/2, 50, 120, 40, 0, 0, Math.PI * 2);
+            context.fill();
+            
+            context.beginPath();
+            context.ellipse(canvas.width/2, canvas.height - 50, 120, 40, 0, 0, Math.PI * 2);
+            context.fill();
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            
+            // Создаем материал планеты с нормальным отображением для реалистичности
+            const planetMaterial = new THREE.MeshPhongMaterial({
+                map: texture,
+                bumpMap: texture,
+                bumpScale: 0.05,
+                specularMap: texture,
+                specular: new THREE.Color(0x333333),
+                shininess: 30
+            });
+            
+            const planetGeometry = new THREE.SphereGeometry(25, 64, 64);
+            const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
+            planetGroup.add(planetMesh);
+            
+            // Создаем атмосферу планеты
+            const atmosphereGeometry = new THREE.SphereGeometry(27, 64, 64);
+            const atmosphereMaterial = new THREE.MeshPhongMaterial({
+                color: 0x88ccff,
+                transparent: true,
+                opacity: 0.2,
+                side: THREE.BackSide
+            });
+            
+            const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+            planetGroup.add(atmosphereMesh);
+            
+            // Создаем свечение атмосферы
+            const glowGeometry = new THREE.SphereGeometry(30, 32, 32);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x4488ff,
+                transparent: true,
+                opacity: 0.1,
+                side: THREE.BackSide,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+            planetGroup.add(glowMesh);
+            
+            // Создаем кольца вокруг планеты (как у Сатурна)
+            const ringGeometry = new THREE.RingGeometry(35, 50, 64);
+            const ringMaterial = new THREE.MeshBasicMaterial({
+                color: 0xf1c40f,
+                transparent: true,
+                opacity: 0.7,
+                side: THREE.DoubleSide
+            });
+            
+            const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+            ringMesh.rotation.x = Math.PI / 2;
+            planetGroup.add(ringMesh);
+            
+            // Создаем невидимую сферу для коллизии
+            const collisionGeometry = new THREE.SphereGeometry(27, 16, 16);
+            const collisionMaterial = new THREE.MeshBasicMaterial({
+                visible: false
+            });
+            
+            const collisionMesh = new THREE.Mesh(collisionGeometry, collisionMaterial);
+            planetGroup.add(collisionMesh);
+            
+            // Добавляем источник света для планеты
+            const light = new THREE.PointLight(0x88aaff, 0.7, 200);
+            light.position.set(0, 0, 15);
+            planetGroup.add(light);
+            
+            planet = planetGroup;
+            planet.collisionMesh = collisionMesh;
+            planet.mesh = planetMesh;
+            planet.atmosphere = atmosphereMesh;
+            planet.ring = ringMesh;
+            planet.glow = glowMesh;
+            
+            // Анимация вращения планеты
+            function animatePlanet() {
+                planetGroup.rotation.y += 0.01;
+                planetMesh.rotation.y += 0.005;
+                atmosphereMesh.rotation.y += 0.002;
+                ringMesh.rotation.z += 0.001;
+                
+                // Пульсация свечения атмосферы
+                const time = Date.now() * 0.001;
+                glowMesh.scale.setScalar(1 + Math.sin(time) * 0.05);
+                glowMaterial.opacity = 0.1 + Math.sin(time * 2) * 0.05;
+                
+                requestAnimationFrame(animatePlanet);
+            }
+            animatePlanet();
+        }
+        
         function setupEventListeners() {
-            // Обработчики мыши
             renderer.domElement.addEventListener('mousedown', onMouseDown);
             renderer.domElement.addEventListener('mousemove', onMouseMove);
             renderer.domElement.addEventListener('mouseup', onMouseUp);
             renderer.domElement.addEventListener('click', onMouseClick);
+            renderer.domElement.addEventListener('mousemove', onMouseMoveForPlanet);
             
-            // Обработчики касания
             renderer.domElement.addEventListener('touchstart', onTouchStart);
             renderer.domElement.addEventListener('touchmove', onTouchMove);
             renderer.domElement.addEventListener('touchend', onTouchEnd);
             
-            // Обработчик изменения размера окна
             window.addEventListener('resize', onWindowResize);
             
-            // Закрытие сертификата
+            starLoginBtn.addEventListener('click', handleStarLogin);
+            planetLoginBtn.addEventListener('click', handlePlanetLogin);
+            
+            closeStarLoginBtn.addEventListener('click', hideStarLoginForm);
+            closePlanetLoginBtn.addEventListener('click', hidePlanetLoginForm);
+            
+            starLoginBackdrop.addEventListener('click', hideStarLoginForm);
+            planetLoginBackdrop.addEventListener('click', hidePlanetLoginForm);
+            
             closeBtn.addEventListener('click', hideCertificate);
             backdrop.addEventListener('click', hideCertificate);
+            
+            backButton.addEventListener('click', deselectPlanet);
+            
+            starPasswordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleStarLogin();
+                }
+            });
+            
+            planetPasswordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handlePlanetLogin();
+                }
+            });
         }
         
         function onMouseDown(event) {
+            if (isPlanetSelected) return;
             isDragging = true;
             previousMousePosition = { x: event.clientX, y: event.clientY };
         }
         
         function onMouseMove(event) {
+            if (isPlanetSelected) return;
             if (!isDragging) return;
             
             const deltaX = event.clientX - previousMousePosition.x;
             const deltaY = event.clientY - previousMousePosition.y;
             
-            // Вращение сцены
             starField.forEach(stars => {
                 stars.rotation.y += deltaX * 0.01;
                 stars.rotation.x += deltaY * 0.01;
@@ -471,25 +1195,49 @@
             previousMousePosition = { x: event.clientX, y: event.clientY };
         }
         
+        function onMouseMoveForPlanet(event) {
+            if (isPlanetSelected) return;
+            
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(planet.collisionMesh);
+            
+            if (intersects.length > 0) {
+                planetInfo.style.display = 'block';
+            } else {
+                planetInfo.style.display = 'none';
+            }
+        }
+        
         function onMouseUp() {
             isDragging = false;
         }
         
         function onMouseClick(event) {
-            // Преобразование координат мыши в нормализованные координаты устройства
+            if (isPlanetSelected) return;
+            
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
             
-            // Проверка пересечения с центральной звездой
             raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObject(mainStar.collisionMesh);
+            const starIntersects = raycaster.intersectObject(mainStar.collisionMesh);
             
-            if (intersects.length > 0) {
-                showCertificate();
+            if (starIntersects.length > 0) {
+                showStarLoginForm();
+                return;
+            }
+            
+            const planetIntersects = raycaster.intersectObject(planet.collisionMesh);
+            
+            if (planetIntersects.length > 0) {
+                showPlanetLoginForm();
             }
         }
         
         function onTouchStart(event) {
+            if (isPlanetSelected) return;
             if (event.touches.length === 1) {
                 isDragging = true;
                 previousMousePosition = { x: event.touches[0].clientX, y: event.touches[0].clientY };
@@ -498,12 +1246,12 @@
         }
         
         function onTouchMove(event) {
+            if (isPlanetSelected) return;
             if (!isDragging || event.touches.length !== 1) return;
             
             const deltaX = event.touches[0].clientX - previousMousePosition.x;
             const deltaY = event.touches[0].clientY - previousMousePosition.y;
             
-            // Вращение сцены
             starField.forEach(stars => {
                 stars.rotation.y += deltaX * 0.01;
                 stars.rotation.x += deltaY * 0.01;
@@ -514,20 +1262,28 @@
         }
         
         function onTouchEnd(event) {
+            if (isPlanetSelected) return;
             if (event.touches.length === 0) {
                 isDragging = false;
                 
-                // Проверка касания для открытия сертификата
                 if (event.changedTouches.length === 1) {
                     const touch = event.changedTouches[0];
                     mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
                     mouse.y = - (touch.clientY / window.innerHeight) * 2 + 1;
                     
                     raycaster.setFromCamera(mouse, camera);
-                    const intersects = raycaster.intersectObject(mainStar.collisionMesh);
                     
-                    if (intersects.length > 0 && !isDragging) {
-                        showCertificate();
+                    const starIntersects = raycaster.intersectObject(mainStar.collisionMesh);
+                    
+                    if (starIntersects.length > 0 && !isDragging) {
+                        showStarLoginForm();
+                        return;
+                    }
+                    
+                    const planetIntersects = raycaster.intersectObject(planet.collisionMesh);
+                    
+                    if (planetIntersects.length > 0 && !isDragging) {
+                        showPlanetLoginForm();
                     }
                 }
             }
@@ -540,21 +1296,14 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
         
-        function showCertificate() {
-            certificateContainer.classList.add('visible');
-        }
-        
-        function hideCertificate() {
-            certificateContainer.classList.remove('visible');
-        }
-        
         function animate() {
             requestAnimationFrame(animate);
             
-            // Медленное автоматическое вращение
-            starField.forEach(stars => {
-                stars.rotation.y += 0.0005;
-            });
+            if (!isPlanetSelected) {
+                starField.forEach(stars => {
+                    stars.rotation.y += 0.0005;
+                });
+            }
             
             renderer.render(scene, camera);
         }

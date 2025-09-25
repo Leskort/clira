@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Звезда для Саши</title>
+    <title>Планета для Саши</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * {
@@ -221,6 +221,13 @@
             outline: none;
             border-color: #4fc3f7;
             box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+            display: block;
         }
         
         .login-btn {
@@ -471,10 +478,12 @@
                 <div class="form-group">
                     <label for="star-username">Логин:</label>
                     <input type="text" id="star-username" placeholder="Введите логин">
+                    <span class="hint">Подсказка: Название этой системы (4 буквы)</span>
                 </div>
                 <div class="form-group">
                     <label for="star-password">Пароль:</label>
                     <input type="password" id="star-password" placeholder="Введите пароль">
+                    <span class="hint">Подсказка: То, что светит ночью на небе</span>
                 </div>
                 <button class="login-btn" id="star-login-btn">Войти</button>
                 <div class="error-message" id="star-error-message">Неверный логин или пароль</div>
@@ -490,10 +499,12 @@
                 <div class="form-group">
                     <label for="planet-username">Логин:</label>
                     <input type="text" id="planet-username" placeholder="Введите логин">
+                    <span class="hint">Подсказка: Название этой системы (4 буквы)</span>
                 </div>
                 <div class="form-group">
                     <label for="planet-password">Пароль:</label>
                     <input type="password" id="planet-password" placeholder="Введите пароль">
+                    <span class="hint">Подсказка: То, что светит ночью на небе</span>
                 </div>
                 <button class="login-btn" id="planet-login-btn">Войти</button>
                 <div class="error-message" id="planet-error-message">Неверный логин или пароль</div>
@@ -508,9 +519,9 @@
                 <h1>СЕРТИФИКАТ</h1>
                 <p>Настоящим удостоверяется, что</p>
                 <div class="highlight">Саша</div>
-                <p>является официальным владельцем звезды</p>
-                <p>в созвездии Скорпиона, которая будет</p>
-                <p>вечно сиять в ночном небе в твою честь.</p>
+                <p>является официальным владельцем планеты</p>
+                <p>в звездной системе Tron, которая будет</p>
+                <p>вечно вращаться вокруг своей звезды в твою честь.</p>
                 <div class="signature">С любовью, Tron</div>
                 <div class="date" id="current-date"></div>
             </div>
@@ -984,62 +995,100 @@
             canvas.height = 512;
             const context = canvas.getContext('2d');
             
-            // Заполняем фон - океаны
+            // Заполняем фон - океаны с более естественными оттенками
             const oceanGradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
-            oceanGradient.addColorStop(0, '#1a5276');
-            oceanGradient.addColorStop(0.5, '#2874a6');
-            oceanGradient.addColorStop(1, '#3498db');
+            oceanGradient.addColorStop(0, '#0a3d62');
+            oceanGradient.addColorStop(0.5, '#1a5276');
+            oceanGradient.addColorStop(1, '#2874a6');
             
             context.fillStyle = oceanGradient;
             context.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Добавляем континенты
+            // Добавляем континенты с более естественными формами
             context.fillStyle = '#27ae60';
             
-            // Континент 1
+            // Континент 1 (похожий на Африку)
             context.beginPath();
-            context.ellipse(200, 200, 80, 60, 0, 0, Math.PI * 2);
+            context.moveTo(300, 200);
+            context.bezierCurveTo(280, 250, 250, 300, 300, 350);
+            context.bezierCurveTo(350, 400, 400, 380, 450, 350);
+            context.bezierCurveTo(500, 320, 520, 250, 500, 200);
+            context.bezierCurveTo(480, 150, 400, 100, 300, 200);
+            context.closePath();
             context.fill();
             
-            // Континент 2
+            // Континент 2 (похожий на Северную Америку)
             context.beginPath();
-            context.ellipse(500, 300, 100, 70, Math.PI/4, 0, Math.PI * 2);
+            context.moveTo(150, 100);
+            context.bezierCurveTo(100, 150, 50, 200, 100, 250);
+            context.bezierCurveTo(150, 300, 200, 280, 250, 250);
+            context.bezierCurveTo(300, 220, 250, 150, 200, 100);
+            context.closePath();
             context.fill();
             
-            // Континент 3
+            // Континент 3 (похожий на Южную Америку)
             context.beginPath();
-            context.ellipse(800, 150, 90, 50, -Math.PI/6, 0, Math.PI * 2);
+            context.moveTo(200, 300);
+            context.bezierCurveTo(150, 350, 100, 400, 150, 450);
+            context.bezierCurveTo(200, 500, 250, 450, 270, 400);
+            context.bezierCurveTo(290, 350, 250, 320, 200, 300);
+            context.closePath();
             context.fill();
             
-            // Добавляем облака
-            context.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            for (let i = 0; i < 20; i++) {
+            // Континент 4 (похожий на Австралию)
+            context.beginPath();
+            context.arc(750, 400, 40, 0, Math.PI * 2);
+            context.fill();
+            
+            // Добавляем горные хребты
+            context.fillStyle = '#7d6608';
+            context.beginPath();
+            context.moveTo(320, 250);
+            context.bezierCurveTo(340, 240, 360, 230, 380, 250);
+            context.bezierCurveTo(400, 270, 420, 280, 440, 270);
+            context.strokeStyle = '#7d6608';
+            context.lineWidth = 3;
+            context.stroke();
+            
+            // Добавляем пустыни
+            context.fillStyle = '#d68910';
+            context.beginPath();
+            context.ellipse(400, 320, 30, 20, 0, 0, Math.PI * 2);
+            context.fill();
+            
+            // Добавляем облака с более естественным видом
+            context.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            for (let i = 0; i < 25; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
-                const radius = 10 + Math.random() * 20;
+                const radius = 8 + Math.random() * 15;
                 context.beginPath();
                 context.arc(x, y, radius, 0, Math.PI * 2);
                 context.fill();
                 
-                // Добавляем небольшие облака вокруг
+                // Добавляем небольшие облака вокруг для более естественного вида
                 for (let j = 0; j < 3; j++) {
-                    const offsetX = (Math.random() - 0.5) * 40;
-                    const offsetY = (Math.random() - 0.5) * 40;
-                    const smallRadius = 5 + Math.random() * 10;
+                    const offsetX = (Math.random() - 0.5) * 30;
+                    const offsetY = (Math.random() - 0.5) * 30;
+                    const smallRadius = 4 + Math.random() * 8;
                     context.beginPath();
                     context.arc(x + offsetX, y + offsetY, smallRadius, 0, Math.PI * 2);
                     context.fill();
                 }
             }
             
-            // Добавляем полярные шапки
-            context.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            // Добавляем полярные шапки с градиентом
+            const polarGradient = context.createRadialGradient(canvas.width/2, 50, 0, canvas.width/2, 50, 80);
+            polarGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+            polarGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            context.fillStyle = polarGradient;
             context.beginPath();
-            context.ellipse(canvas.width/2, 50, 120, 40, 0, 0, Math.PI * 2);
+            context.ellipse(canvas.width/2, 50, 100, 40, 0, 0, Math.PI * 2);
             context.fill();
             
             context.beginPath();
-            context.ellipse(canvas.width/2, canvas.height - 50, 120, 40, 0, 0, Math.PI * 2);
+            context.ellipse(canvas.width/2, canvas.height - 50, 100, 40, 0, 0, Math.PI * 2);
             context.fill();
             
             const texture = new THREE.CanvasTexture(canvas);
@@ -1048,7 +1097,7 @@
             const planetMaterial = new THREE.MeshPhongMaterial({
                 map: texture,
                 bumpMap: texture,
-                bumpScale: 0.05,
+                bumpScale: 0.1,
                 specularMap: texture,
                 specular: new THREE.Color(0x333333),
                 shininess: 30
@@ -1058,12 +1107,12 @@
             const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
             planetGroup.add(planetMesh);
             
-            // Создаем атмосферу планеты
+            // Создаем атмосферу планеты с более реалистичным видом
             const atmosphereGeometry = new THREE.SphereGeometry(27, 64, 64);
             const atmosphereMaterial = new THREE.MeshPhongMaterial({
                 color: 0x88ccff,
                 transparent: true,
-                opacity: 0.2,
+                opacity: 0.3,
                 side: THREE.BackSide
             });
             
@@ -1075,7 +1124,7 @@
             const glowMaterial = new THREE.MeshBasicMaterial({
                 color: 0x4488ff,
                 transparent: true,
-                opacity: 0.1,
+                opacity: 0.15,
                 side: THREE.BackSide,
                 blending: THREE.AdditiveBlending
             });
@@ -1127,7 +1176,10 @@
                 // Пульсация свечения атмосферы
                 const time = Date.now() * 0.001;
                 glowMesh.scale.setScalar(1 + Math.sin(time) * 0.05);
-                glowMaterial.opacity = 0.1 + Math.sin(time * 2) * 0.05;
+                glowMaterial.opacity = 0.15 + Math.sin(time * 2) * 0.05;
+                
+                // Медленное изменение атмосферы
+                atmosphereMaterial.opacity = 0.3 + Math.sin(time * 0.5) * 0.1;
                 
                 requestAnimationFrame(animatePlanet);
             }
